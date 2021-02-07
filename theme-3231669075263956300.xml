@@ -3,11 +3,6 @@
 <html b:version='2' class='v2' expr:dir='data:blog.languageDirection' expr:lang='data:blog.locale' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
   <head>
     <meta expr:content='data:blog.isMobile         ? &quot;width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0&quot;         : &quot;width=1100&quot;' name='viewport'/>
-    <link href='https://fonts.gstatic.com ' rel='preconnect'/>
-    <link href='https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;400;600' rel='stylesheet'/>
-    <link href='https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/themes/prism.min.css' rel='stylesheet'/>
-    <link href='https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/plugins/line-numbers/prism-line-numbers.min.css' rel='stylesheet'/>
-    <link href='https://cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/plugins/line-highlight/prism-line-highlight.min.css' rel='stylesheet'/>
     <b:include data='blog' name='all-head-content'/>
     <title><data:blog.pageTitle/></title>
 
@@ -181,6 +176,20 @@ body {
   padding: 0 $(content.shadow.spread) $(content.shadow.spread) $(content.shadow.spread);
   font-family: 'Noto Serif JP', serif !important;
   $(body.background.override)
+}
+
+.post-body, .entry-content {
+	line-height: 32px !important;
+}
+
+.hljs-keyword, .hljs-title {
+  font-weight: bold !important;
+}
+.hljs-params {
+  color: #fd971f !important;
+}
+.hljs {
+  padding: 1.0em !important;
 }
 
 h1.title {
@@ -717,6 +726,14 @@ body.mobile  {
     </b:if>
 
     <b:include data='blog' name='google-analytics'/>
+
+    <link href='https://fonts.gstatic.com ' rel='preconnect'/>
+    <link href='https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;400;600' rel='stylesheet'/>
+    <!-- START USER DEFINED AREA -->
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/monokai-sublime.min.css' rel='stylesheet'/>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js'/>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <!-- END USER DEFINED AREA -->
   </head>
 
   <body expr:class='&quot;loading&quot; + data:blog.mobileClass'>
