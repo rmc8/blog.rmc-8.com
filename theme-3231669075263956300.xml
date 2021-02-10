@@ -31,15 +31,15 @@ URL:      www.blogger.com
    </Group>
 
    <Group description="Links" selector=".main-outer">
-     <Variable name="link.color" description="Link Color" type="color" default="#2288bb" value="#2288bb"/>
-     <Variable name="link.visited.color" description="Visited Color" type="color" default="#888888" value="#888888"/>
-     <Variable name="link.hover.color" description="Hover Color" type="color" default="#33aaff" value="#33aaff"/>
+     <Variable name="link.color" description="Link Color" type="color" default="#2288bb" value="#3367D6"/>
+     <Variable name="link.visited.color" description="Visited Color" type="color" default="#888888" value="#3367D6"/>
+     <Variable name="link.hover.color" description="Hover Color" type="color" default="#33aaff" value="#7BAAF7"/>
    </Group>
 
    <Group description="Blog Title" selector=".header h1">
      <Variable name="header.font" description="Font" type="font"
          default="normal normal 60px Arial, Tahoma, Helvetica, FreeSans, sans-serif" value="normal normal 40px &#39;Trebuchet MS&#39;,Trebuchet,Verdana,sans-serif"/>
-     <Variable name="header.text.color" description="Title Color" type="color" default="#3399bb"  value="#000000"/>
+     <Variable name="header.text.color" description="Title Color" type="color" default="#3399bb"  value="#ffffff"/>
    </Group>
 
    <Group description="Blog Description" selector=".header .description">
@@ -68,9 +68,9 @@ URL:      www.blogger.com
      <Variable name="date.header.color" description="Text Color" type="color"
          default="$(body.text.color)" value="#ffffff"/>
      <Variable name="date.header.background.color" description="Background Color" type="color"
-         default="transparent" value="#bbbbbb"/>
+         default="transparent" value="#888888"/>
      <Variable name="date.header.font" description="Text Font" type="font"
-         default="normal bold 11px Arial, Tahoma, Helvetica, FreeSans, sans-serif" value="normal bold 11px Arial, Tahoma, Helvetica, FreeSans, sans-serif"/>
+         default="normal bold 11px Arial, Tahoma, Helvetica, FreeSans, sans-serif" value="normal bold 14px Arial, Tahoma, Helvetica, FreeSans, sans-serif"/>
      <Variable name="date.header.padding" description="Date Header Padding" type="string" default="inherit" value="0.4em"/>
      <Variable name="date.header.letterspacing" description="Date Header Letter Spacing" type="string" default="inherit" value="3px"/>
      <Variable name="date.header.margin" description="Date Header Margin" type="string" default="inherit" value="inherit"/>
@@ -92,7 +92,7 @@ URL:      www.blogger.com
 
    <Group description="Images" selector=".main-inner">
      <Variable name="image.background.color" description="Background Color" type="color" default="#ffffff" value="#ffffff"/>
-     <Variable name="image.border.color" description="Border Color" type="color" default="#eeeeee" value="#eeeeee"/>
+     <Variable name="image.border.color" description="Border Color" type="color" default="#eeeeee" value="transparent"/>
      <Variable name="image.text.color" description="Caption Text Color" type="color" default="$(body.text.color)" value="#666666"/>
    </Group>
 
@@ -171,15 +171,19 @@ URL:      www.blogger.com
 ----------------------------------------------- */
 body {
   font: $(body.font);
+  /*   
   color: $(body.text.color);
-  background: $(body.background);
+  */
+  background: $(body.background); 
+  background-color: #fdfdfd !important;
+  color: #333;
   padding: 0 $(content.shadow.spread) $(content.shadow.spread) $(content.shadow.spread);
   font-family: 'Noto Serif JP', serif !important;
   $(body.background.override)
 }
 
 .post-body, .entry-content {
-	line-height: 32px !important;
+	line-height: 1.8em !important;
 }
 
 .hljs-keyword, .hljs-title {
@@ -190,12 +194,21 @@ body {
 }
 .hljs {
   padding: 1.0em !important;
+  border: 1px solid #1d1d1d;
 }
+
 
 h1.title {
   font-family: 'Noto Serif JP', serif !important;
   font-size: 56px !important;
   text-align: center;
+}
+div.descriptionwrapper .description {
+  display: none;
+  /*
+  text-align: center;
+  font-size:24px !important;
+  */
 }
 
 html body $(page.width.selector) {
@@ -224,6 +237,7 @@ a:link {
 a:visited {
   text-decoration:none;
   color: $(link.visited.color);
+
 }
 
 a:hover {
@@ -258,12 +272,26 @@ a:hover {
   margin-bottom: 1px;
 }
 
+.status-msg-wrap {
+  margin-bottom: 48px;
+}
+
 .content-inner {
   padding: $(content.padding) $(content.padding.horizontal);
+  background-color: transparent !important;
 }
 
 $(content.background.color.selector) {
   background-color: $(content.background.color);
+}
+
+#BlogArchive1_ArchiveMenu {
+  font-size: 20px;
+  width: 100%;
+}
+
+.gsc-input {
+  font-size: 20px;
 }
 
 /* Header
@@ -276,11 +304,13 @@ $(content.background.color.selector) {
 .Header h1 {
   font: $(header.font);
   color: $(header.text.color);
+  color: #333;
   text-shadow: $(header.shadow.offset.left) $(header.shadow.offset.top) $(header.shadow.spread) rgba(0, 0, 0, .2);
 }
 
 .Header h1 a {
   color: $(header.text.color);
+  color: #333;
 }
 
 .Header .description {
@@ -377,6 +407,162 @@ div.widget h2.title {
   list-style: none;
 }
 
+
+/* [ADD] TOC
+----------------------------------------------- */
+.cke_editable .b-toc-container {
+  display: none;
+}
+
+.b-toc-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 20px;
+  margin-bottom: 0;
+  background-color: white;
+  transition: 0.3s all ease;
+  transform: translateX(-100%);
+  box-shadow: 0 1px 1px 0 rgba(0, 28, 36, 0.5);
+  max-width: 80%;
+  height: 100%;
+  z-index: 100;
+  transparent: 50%;
+  -webkit-box-shadow: 0 0 8px -1px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 0 8px -1px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 0 8px -1px rgba(0, 0, 0, 0.1); */
+}
+
+.b-toc-container:hover {
+  left: 0;
+  transform: translateX(0);
+}
+
+.b-toc-container::before {
+  opacity: 0;
+  font-size: 24px;
+  display: block;
+  color: #fff;
+  margin: 0 -20px 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 20px 30px;
+}
+
+.b-toc-container:hover::before {
+  opacity: 1;
+}
+
+.b-toc-container::after {
+  content: "Table of Contents";
+  font-weight: bold;
+  padding: 24px 0 8px 0;
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: bold;
+  text-align: center;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 184px;
+  transition: 0.3s all ease;
+  transform: rotate(-90deg) translate(0, -66px);
+  /* background-color: #364d6a; */
+  border: 1px solid #aaa;
+  background-color: #fff;
+  color: #151515;
+  border-radius: 8px;
+  margin-left: -16px;
+}
+
+.b-toc-container:hover::after {
+  opacity: 0;
+  left: 0;
+}
+
+
+.b-toc-container ul {
+  list-style-type: none;
+  font-weight: 70
+  padding-left: 0;
+  padding-bottom: 0;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+.b-toc-container ul ul {
+  padding-left: 10px;
+}
+
+.b-toc-container ul li {
+  padding: 0 0 5px;
+}
+
+/* --- */
+
+div.b-toc-container > p {
+  display: none;
+}
+
+.toc-text {
+  line-height: 1.5em;
+}
+
+.b-toc-container{
+  background:#fefefe;
+  border:1px solid #aaa;
+  padding: 16px;
+  margin-bottom: 0px !important;
+  width:auto;
+  display:table;
+  font-size:22px;
+}
+
+.b-toc-container p{
+  text-align:center;
+  margin:0;
+  padding:0
+}
+
+.b-toc-container ul{
+  list-style-type:none;
+  list-style:none;
+  margin:0;
+  padding:0
+}
+
+.b-toc-container>ul{margin:15px 0 0}
+
+.b-toc-container.hide>ul{display:none}
+
+.b-toc-container ul li{
+  margin:0;
+  padding:0 0 0 20px;
+  list-style:none
+}
+
+.b-toc-container ul li:after,.b-toc-container ul li:before{
+  background:0;
+  border-radius:0;
+  content:""
+}
+
+.b-toc-container ul li a{
+  text-decoration:none;
+  font-weight:400;
+  display:flex;
+  align-items:flex-start;
+  flex-wrap:nowrap
+}
+
+.b-toc-container ul li .toc-number{
+  margin:0 .5em 0 0;
+  white-space:nowrap
+}
+
+.b-toc-container ul li .toc-text:hover{text-decoration:underline}
+
 /* Posts
 ----------------------------------------------- */
 div.date-header {
@@ -405,7 +591,8 @@ div.date-header {
 }
 
 .post {
-  margin: 0 0 $(post.margin.bottom) 0;
+  /* margin: 0 0 $(post.margin.bottom) 0; */
+  margin: 0 0 88px 0;
 }
 
 h2.post-title, .comments h3{
@@ -417,9 +604,12 @@ h2.post-title, h2.entry-title {
   font-size: 32px;
 }
 
+div.jump-link {
+  margin-bottom: 40px;
+}
 div.jump-link > a {
   color: #444;
-  padding: 10px;
+  padding: 12px;
   background-color: #fff;
   border: 1px solid #d9d9d9;
   border-radius: 4px;
@@ -444,7 +634,6 @@ span.post-author, span.post-timestamp, span.reaction-buttons {
 
 .post-body {
   font-size: 110%;
-  line-height: 1.4;
   position: relative;
 }
 
@@ -453,7 +642,7 @@ span.post-author, span.post-timestamp, span.reaction-buttons {
   padding: $(image.border.small.size);
 
   background: $(image.background.color);
-  border: 1px solid $(image.border.color);
+  border: 0px solid $(image.border.color);
 
   -moz-box-shadow: 1px 1px 5px rgba(0, 0, 0, .1);
   -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, .1);
@@ -557,7 +746,8 @@ span.post-author, span.post-timestamp, span.reaction-buttons {
 
 .blog-pager-older-link, .home-link,
 .blog-pager-newer-link {
-  background-color: $(content.background.color);
+  /* background-color: $(content.background.color); */
+  background-color: transparent:
   padding: 5px;
 }
 
@@ -646,6 +836,57 @@ body.mobile  {
 .mobile .tabs-inner .PageList .widget-content .pagelist-arrow {
   border-$startSide: 1px solid $(tabs.border.color);
 }
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --dark-bg: #222222;
+    --dark-str-color:#f5f5f5;
+    --dark-str-color2:#aaaaaa;
+  }
+
+  body {
+    background:  var(--dark-bg) !important;
+    color:  var(--dark-str-color) !important;
+  }
+  a:link {
+    color: $(link.hover.color) !important;
+  }
+  a:visited {
+    color: $(link.hover.color) !important;
+  }
+  a:hover {
+    color: $(link.color) !important;
+  }
+  .Header h1, .Header h1 a, .Header h1 a:hover {
+    color:  var(--dark-str-color) !important;
+  }
+  .post-footer {
+    color: var(--dark-str-color2) !important;
+    border-color: #444 !important;
+  }
+  div.jump-link > a {
+    background-color: #333;
+    color: var(--dark-str-color) !important;
+    border-color: #444 !important;
+  }
+  .b-toc-container {
+    background-color: var(--dark-bg) !important;
+    border-color: #444 !important;
+  }
+  h2.post-title a:visited, h2.entry-title a:visted {
+    color: var(--link-visted) !important;
+  }
+  .b-toc-container::after {
+    color: var(--dark-str-color) !important;
+    background-color: #1d1d1d;
+    border-color: #151515;
+  }
+  .footer-outer h2 {
+    color:  var(--dark-str-color) !important;
+  }
+}
+
+
 ]]></b:skin>
 
     <b:template-skin>
@@ -718,6 +959,7 @@ body.mobile  {
       body#layout div.add_widget a {
         margin-left: 32px;
       }
+
       ]]>
     </b:template-skin>
 
@@ -734,6 +976,30 @@ body.mobile  {
     <script src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js'/>
     <script>hljs.initHighlightingOnLoad();</script>
     <!-- END USER DEFINED AREA -->
+    
+    <!-- TOC -->
+    <b:if cond='data:blog.pageType == &quot;item&quot;'>
+      <script>
+        //以下のオプションを好みに合わせて変更して下さい
+        //オプションの詳しい説明は&#12289;(https://www.sukerou.com/2018/10/blogger-table-of-contents-javascript.html)を参照
+        var toc_options = {
+          target: [&quot;h2&quot;, &quot;h3&quot;, &quot;h4&quot;],
+          autoNumber:  true,
+          condTargetCount: 2,
+          insertPosition: &quot;firstHeadBefore&quot;,
+          showToc: true,
+          width: &quot;auto&quot;,
+          marginTop: &quot;20px&quot;,
+          marginBottom: &quot;20px&quot;,
+          indent: &quot;20px&quot;,
+          postBodySelector: &quot;.widget.Blog&quot;
+        };
+
+        //これ以降のソースは編集しないでください
+        ;(function(i){var j=0;document.addEventListener(&quot;DOMContentLoaded&quot;,function(){var p=document.querySelector(toc_options.postBodySelector);if(p==null||typeof p===&quot;undefined&quot;){return}if(toc_options.target.length==0){return}rootContent=h(toc_options,p);if(rootContent.children.length&gt;=toc_options.condTargetCount){var q=c(rootContent);o(q)}});function h(q,p){var u=q.target.length;var t=function(E,D,w){var z=q.target[E];var x=E&lt;u-1?q.target[E+1]:&quot;&quot;;var y=&quot;toc_headline_&quot;+(++j);var F=g(z,m(D),E+1,y);w.children.push(F);D.id=y;var A=f(D);if(x==&quot;&quot;){return}while(true){if(A==null||typeof A===&quot;undefined&quot;){break}if(b(A)==z){break}if(b(A)==x){t(E+1,A,F)}else{var B=A.getElementsByTagName(x);for(var C=0;C&lt;B.length;C++){t(E+1,B[C],F)}}var A=f(A)}};var r=g(&quot;ROOT&quot;,&quot;&quot;,0);var v=p.getElementsByTagName(q.target[0]);for(var s=0;s&lt;v.length;s++){t(0,v[s],r,&quot;&quot;)}return r}function c(s){var r=document.createElement(&quot;div&quot;);r.classList.add(&quot;b-toc-container&quot;);r.style.marginTop=toc_options.marginTop;r.style.marginBottom=toc_options.marginTop;if(toc_options.width==&quot;100%&quot;){r.style.display=&quot;block&quot;}else{r.style.width=toc_options.width}var q=document.createElement(&quot;p&quot;);var w=document.createElement(&quot;span&quot;);var v=document.createElement(&quot;span&quot;);var u=document.createElement(&quot;span&quot;);v.classList.add(&quot;b-toc-show-wrap&quot;);u.classList.add(&quot;b-toc-show-wrap&quot;);var y=document.createElement(&quot;a&quot;);w.innerText=&quot;Table of Contents&quot;;v.innerText=&quot;[&quot;;u.innerText=&quot;]&quot;;y.href=&quot;javascript:void(0);&quot;;q.appendChild(w);q.appendChild(v);q.appendChild(y);q.appendChild(u);var t=function(z){var p=typeof z===&quot;boolean&quot;?z:e(r,&quot;hide&quot;);if(p){y.innerText=&quot;Hide&quot;;r.classList.remove(&quot;hide&quot;)}else{y.innerText=&quot;Show&quot;;r.classList.add(&quot;hide&quot;)}};y.addEventListener(&quot;click&quot;,t);t(toc_options.showToc);var x=document.createElement(&quot;ul&quot;);x.classList.add(&quot;toc-root-list&quot;);s.children.forEach(function(z,p){n(x,z,(p+1)+&quot;&quot;)});r.appendChild(q);r.appendChild(x);return r}function n(s,u,w){var p=document.createElement(&quot;li&quot;);p.classList.add(&quot;toc-list-item&quot;);var q=document.createElement(&quot;a&quot;);p.style.paddingLeft=toc_options.indent;s.style.paddingLeft=0;q.href=&quot;#&quot;+u.id;if(toc_options.autoNumber){var t=document.createElement(&quot;span&quot;);t.classList.add(&quot;toc-number&quot;);t.innerText=w+&quot;.&quot;}var v=document.createElement(&quot;span&quot;);v.classList.add(&quot;toc-text&quot;);v.innerText=u.text;if(toc_options.autoNumber){q.appendChild(t)}q.appendChild(v);p.appendChild(q);s.appendChild(p);if(u.children.length&gt;0){var r=document.createElement(&quot;ul&quot;);r.classList.add(&quot;toc-sub-list&quot;);p.appendChild(r);u.children.forEach(function(y,x){n(r,y,w+&quot;.&quot;+(x+1))})}}function o(q){var r=null;var p=document.querySelector(toc_options.postBodySelector);if(toc_options.insertPosition==&quot;firstHeadBefore&quot;||toc_options.insertPosition==&quot;firstHeadAfter&quot;){r=p.querySelector(toc_options.target[0])}else{if(toc_options.insertPosition==&quot;top&quot;){r=p}}if(r==null){return}if(toc_options.insertPosition==&quot;firstHeadBefore&quot;){k(r,q)}else{if(toc_options.insertPosition==&quot;firstHeadAfter&quot;){a(r,q)}else{if(toc_options.insertPosition==&quot;top&quot;){k(r,q)}}}}function g(q,r,p,s){return{tagName:q,text:r,children:[],nestLevel:p,id:s}}function m(p){return p.innerText}function f(p){return p.nextElementSibling}function d(p){return p.previousElementSibling}function b(p){return p.tagName.toLowerCase()}function e(p,q){return p.classList.contains(q)}function l(p){return p.parentNode}function a(q,s){var r=l(q);var p=f(q);if(r!=null&amp;&amp;p!=null){r.insertBefore(s,p)}}function k(p,r){var q=l(p);if(q!=null){q.insertBefore(r,p)}}})(window);
+      </script>
+    </b:if>
+    <!-- TOC -->
   </head>
 
   <body expr:class='&quot;loading&quot; + data:blog.mobileClass'>
@@ -755,7 +1021,7 @@ body.mobile  {
       gapi.load(&quot;gapi.iframes:gapi.iframes.style.bubble&quot;, function() {
         if (gapi.iframes &amp;&amp; gapi.iframes.getContext) {
           gapi.iframes.getContext().openChild({
-              url: &#39;https://www.blogger.com/navbar.g?targetBlogID\x3d3231669075263956300\x26blogName\x3dPROTONE\x26publishMode\x3dPUBLISH_MODE_BLOGSPOT\x26navbarType\x3dDISABLED\x26layoutType\x3dLAYOUTS\x26searchRoot\x3dhttps://rmc-8.blogspot.com/search\x26blogLocale\x3dja\x26v\x3d2\x26homepageUrl\x3dhttps://rmc-8.blogspot.com/\x26vt\x3d-1257702343760270186&#39;,
+              url: &#39;https://www.blogger.com/navbar.g?targetBlogID\x3d3231669075263956300\x26blogName\x3dPROTONE\x26publishMode\x3dPUBLISH_MODE_HOSTED\x26navbarType\x3dDISABLED\x26layoutType\x3dLAYOUTS\x26searchRoot\x3dhttps://blog.rmc-8.com/search\x26blogLocale\x3dja\x26v\x3d2\x26homepageUrl\x3dhttps://blog.rmc-8.com/\x26vt\x3d3112986853618127851&#39;,
               where: document.getElementById(&quot;navbar-iframe-container&quot;),
               id: &quot;navbar-iframe&quot;
           });
@@ -1031,10 +1297,10 @@ head.appendChild(script);
                 <b:widget-setting name='showCommentLink'>true</b:widget-setting>
                 <b:widget-setting name='style.urlcolor'>#666666</b:widget-setting>
                 <b:widget-setting name='showAuthor'>false</b:widget-setting>
-                <b:widget-setting name='style.linkcolor'>#2288bb</b:widget-setting>
+                <b:widget-setting name='style.linkcolor'>#3367d6</b:widget-setting>
                 <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
                 <b:widget-setting name='showLabels'>true</b:widget-setting>
-                <b:widget-setting name='postLabelsLabel'>Category</b:widget-setting>
+                <b:widget-setting name='postLabelsLabel'>Label</b:widget-setting>
                 <b:widget-setting name='showBacklinks'>true</b:widget-setting>
                 <b:widget-setting name='showInlineAds'>false</b:widget-setting>
                 <b:widget-setting name='showReactions'>false</b:widget-setting>
@@ -2094,7 +2360,6 @@ head.appendChild(script);
     <b:include name='quickedit'/>
   </b:includable>
   </b:widget>
-</b:section-contents><b:section-contents id='footer-2-2'>
   <b:widget id='BlogArchive1' locked='false' title='Archive' type='BlogArchive'>
     <b:widget-settings>
       <b:widget-setting name='showStyle'>MENU</b:widget-setting>
@@ -2175,6 +2440,7 @@ head.appendChild(script);
   </a>
 </b:includable>
   </b:widget>
+</b:section-contents><b:section-contents id='footer-2-2'>
   <b:widget id='Label1' locked='false' title='Label' type='Label'>
     <b:widget-settings>
       <b:widget-setting name='sorting'>FREQUENCY</b:widget-setting>
